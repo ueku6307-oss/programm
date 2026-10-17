@@ -1,21 +1,22 @@
 x, a, b, c, d = map(int, input().split())
 
+# люди стоят в углах квадрата, расстояние считаем вдоль периметра
 people = [a, b, c, d]
-pos = [0, x, 2 * x, 3 * x]
-peri = 4 * x
+corners = [0, x, 2 * x, 3 * x]
 
-half = (sum(people) + 1) // 2
-acc = 0
-point = 0
+total = 0
+summ = 0
 for i in range(4):
-    acc += people[i]
-    if acc >= half:
-        point = pos[i]
-        break
+    total += people[i]
+    summ += people[i] * corners[i]
 
-ans = 0
-for i in range(4):
-    dist = abs(point - pos[i])
-    ans += people[i] * min(dist, peri - dist)
+if total == 0:
+    print(0)
+else:
+    point = summ // total
 
-print(ans)
+    ans = 0
+    for i in range(4):
+        ans += people[i] * abs(point - corners[i])
+
+    print(ans)
